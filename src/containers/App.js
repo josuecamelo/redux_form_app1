@@ -1,28 +1,5 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form'
-
-//Componente
-let InitForm = (props) => {
-  return(
-      <div>
-        <form action="">
-          <div>
-            <label htmlFor=""></label>
-            <Field
-                name="name"
-                placeholder="Enter your name"
-                type="text"
-                component="input"
-            />
-          </div>
-        </form>
-      </div>
-  )
-}
-
-InitForm = reduxForm({
-  form: 'initForm'
-})(InitForm);
+import InitForm from "../components/InitForm";
 
 //Container
 class App extends Component {
