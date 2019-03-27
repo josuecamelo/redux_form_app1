@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form'
 
 //Componente
-const InitForm = (props) => {
+const InitForm = ({onClick, onChangeName}) => {
+    //const {onClick} = props;
     return(
         <form>
             <div className="form-group">
@@ -13,10 +14,11 @@ const InitForm = (props) => {
                     type="text"
                     component="input"
                     className="form-control"
+                    onChange={onChangeName}
                 />
             </div>
             <div className="form-group">
-                <button className="btn btn-primary">Enviar</button>
+                <button type="button" onClick={onClick} className="btn btn-primary">Enviar</button>
             </div>
         </form>
     )
