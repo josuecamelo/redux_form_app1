@@ -19,7 +19,7 @@ const renderField = ({
     </div>
 )
 
-const validate = (values) => {
+/*const validate = (values) => {
     const errors = {};
     const {name} = values;
 
@@ -32,7 +32,30 @@ const validate = (values) => {
     }
 
     return errors;
+}*/
+
+const validate = (values) => {
+    const errors = {};
+    const {name} = values;
+
+    if (!name) {
+        errors.name = 'Required';
+    }
+
+    return errors;
 }
+
+
+const warn = (values) => {
+    const warnings = {};
+    const { name } = values;
+
+    if (name && name.toString().length <= 2) {
+        warnings.name = 'To Short';
+    }
+
+    return warnings;
+};
 
 class InitForm extends Component {
     componentWillMount() {
@@ -55,7 +78,8 @@ class InitForm extends Component {
                     />
                 </div>
                 <div className="form-group">
-                    <button type="button" onClick={onClick} className="btn btn-primary">Enviar</button>
+                    {/*<button type="button" onClick={onClick} className="btn btn-primary">Enviar</button>*/}
+                    <button type="button" className="btn btn-primary" onClick={(e) => onClick(e, this.props.initialValues)}>Send</button>
                 </div>
             </form>
         )
@@ -79,5 +103,6 @@ export default connect(
 )(reduxForm({
     form: 'InitForm',
     enableReinitialize: true,
-    validate
+    validate,
+    warn
 })(InitForm));
