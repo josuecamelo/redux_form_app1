@@ -1,29 +1,50 @@
-import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form'
+import React, {Component} from 'react';
+import {Field, reduxForm} from 'redux-form'
+import {connect} from "react-redux";
+import {getInitialFetch} from './../actions';
 
-//Componente
-const InitForm = ({onClick, onChangeName}) => {
-    //const {onClick} = props;
-    return(
-        <form>
-            <div className="form-group">
-                <label htmlFor="name">Informe seu Nome:</label>
-                <Field
-                    name="name"
-                    placeholder="Enter your name"
-                    type="text"
-                    component="input"
-                    className="form-control"
-                    onChange={onChangeName}
-                />
-            </div>
-            <div className="form-group">
-                <button type="button" onClick={onClick} className="btn btn-primary">Enviar</button>
-            </div>
-        </form>
-    )
+class InitForm extends Component {
+    componentWillMount() {
+        this.props.fetchInitial();
+    }
+
+    render(){
+        const {onClick, onChangeName} = this.props;
+        return (
+            <form>
+                <div className="form-group">
+                    <label htmlFor="name">Informe seu Nome:</label>
+                    <Field
+                        name="name"
+                        placeholder="Enter your name"
+                        type="text"
+                        component="input"
+                        className="form-control"
+                        onChange={onChangeName}
+                    />
+                </div>
+                <div className="form-group">
+                    <button type="button" onClick={onClick} className="btn btn-primary">Enviar</button>
+                </div>
+            </form>
+        )
+    }
 }
 
-export default reduxForm({
-    form: 'initForm'
-})(InitForm);
+const mapStateToProps = (state) => {
+    return{
+        initialValues: state.name.data
+    }
+}
+
+const mapDispatchToProps = (dispatch)=> {
+    return {
+        fetchInitial : () => dispatch(getInitialFetch())
+    }
+}
+
+export default connect(
+    mapStateToProps, mapDispatchToProps
+)(reduxForm({
+    form: 'InitForm'
+})(InitForm));
